@@ -15,7 +15,7 @@ mc.shelfButton("createTrace", label="create trace", i1="traceCreate.png", comman
 import traceSelectTool as tst
 tst = reload(tst)
 traceSelect = tst.main()""")
-pm = mc.popupMenu( button=1, sh=True )
+pm = mc.popupMenu( button=3, sh=True )
 mc.menuItem( label="Use selected as traceables", command="""
 import traceSelectTool as tst
 
