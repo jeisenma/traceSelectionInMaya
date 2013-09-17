@@ -433,8 +433,22 @@ def findEndEffectorJoints( root ):
             leafs.append( joint )
     return leafs
 
-def main():
-    global traceSelect
+def findRootsFromTraceables(traceables):
+    jointRoots = []
+    xformRoots = []
+    for thing in traceables:
+        itr = thing
+        pitr = mc.listRelatives( itr, parent=True ) 
+        while pitr:
+            itr = pitr[0]
+            pitr = mc.listRelatives( itr, parent=True )
+            if mc.nodeType(itr) == "joint" and (not pitr or mc.nodeType(pitr) != "joint") and not itr in jointRoots:
+                jointRoots.append( itr )
+        if not itr in xformRoots:
+            xformRoots.append( itr )
+    return jointRoots, xformRoots
+
+def autoFindTraceables():
     jointRoots = findRoots()
     xformRoots = [findXformRoot(r) for r in jointRoots]
     # find the important parts of each rig -- so that trajectories can be built for them
@@ -444,6 +458,16 @@ def main():
     traceableObjs.extend( findIKhandles() ) # all IK handles in the scene
     for root in jointRoots:
         traceableObjs.extend( findEndEffectorJoints(root) )   # all end-effector joints under the root
+    return jointRoots, xformRoots, traceableObjs
+    
+def main( traceables=None ):
+    global traceSelect
+
+    if(traceables):
+        traceableObjs = traceables
+        jointRoots, xformRoots = findRootsFromTraceables(traceables)
+    else:
+        jointRoots, xformRoots, traceableObjs = autoFindTraceables()
         
     # if nothing traceable is in the scene, give up
     if len(xformRoots) == 0:

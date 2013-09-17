@@ -11,7 +11,17 @@ if mc.shelfButton("createTrace",q=True,exists=True):
     mc.deleteUI("createTrace")
 shelfTopLevel = mm.eval("global string $gShelfTopLevel;$temp = $gShelfTopLevel")
 mc.setParent("%s|MotionSelection" % shelfTopLevel)
-mc.shelfButton("createTrace", label="create trace", i1="traceCreate.png", command="import traceSelectTool as tst; tst = reload(tst); traceSelect = tst.main()")
+mc.shelfButton("createTrace", label="create trace", i1="traceCreate.png", command="""
+import traceSelectTool as tst
+tst = reload(tst)
+traceSelect = tst.main()""")
+pm = mc.popupMenu( button=1, sh=True )
+mc.menuItem( label="Use selected as traceables", command="""
+import traceSelectTool as tst
+
+tst = reload(tst)
+traceSelect = tst.main(mc.ls(sl=True))
+""", p=pm)
 
 ## Trace Move Tool ##
 if mc.shelfButton("moveTrace",q=True,exists=True):
