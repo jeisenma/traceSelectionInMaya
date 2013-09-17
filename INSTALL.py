@@ -14,14 +14,9 @@ mc.setParent("%s|MotionSelection" % shelfTopLevel)
 mc.shelfButton("createTrace", label="create trace", i1="traceCreate.png", command="import traceSelectTool as tst; tst = reload(tst); traceSelect = tst.main()")
 
 ## Trace Move Tool ##
-if mc.toolButton("spMoveTool1",q=True,exists=True):
+if mc.shelfButton("moveTrace",q=True,exists=True):
     # Remove UI objects
-    mc.deleteUI("spMoveToolContext1")
-    mc.deleteUI("spMoveTool1")
-
-mc.loadPlugin("traceMoveTool.py", quiet=True)
-mc.traceMoveToolContext("traceMoveToolContext")
-mc.setToolTo("traceMoveToolContext")
+    mc.deleteUI("moveTrace")
 
 shelfTopLevel = mm.eval("global string $gShelfTopLevel;$temp = $gShelfTopLevel")
 mc.setParent("%s|MotionSelection" % shelfTopLevel)
