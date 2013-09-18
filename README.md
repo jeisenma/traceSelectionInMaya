@@ -3,7 +3,11 @@ traceSelectionInMaya
 
 A set of Maya tools that enable the user to trace-select motion and then move the resulting trace to edit the motion.
 
-Installation Steps:
+Demo Video
+----------
+http://youtu.be/2pdZmbSkrtU
+
+Installation Steps
 -------------------
 1. copy the icon images from "icons" (traceCreate.png and traceMove.png) to your "maya/VERSION/prefs/icons/" directory
 2. copy all the python scripts from "scripts" to your maya/VERSION/scripts/ directory
