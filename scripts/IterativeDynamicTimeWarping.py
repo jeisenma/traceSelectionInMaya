@@ -81,7 +81,7 @@ class DTW:
                 else:
                     self.D[n][m] = self.C[n][m] + min( self.D[n-1][m-1], self.D[n-1][m]+self.penalty[0], self.D[n][m-1]+self.penalty[1])
                     if n == len(self.C)-1:  # last row
-                        self.D[n][m] += self.penalty[1]*len(self.C[0])-m    # bias the cost of the last row, so that the algorithm prefers to start near the bottom right corner
+                        self.D[n][m] += self.penalty[1]*(len(self.C[0])-m)    # bias the cost of the last row, so that the algorithm prefers to start near the bottom right corner
         
     def OptimalWarpingPath( self, colStart=None ):
         """ Given the cost matrix D, find the
